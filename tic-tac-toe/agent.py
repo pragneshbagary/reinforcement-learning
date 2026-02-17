@@ -19,7 +19,7 @@ class Agent():
         values = []
 
         for move in legal_moves:
-            next_state = board.make_a_move(state, move, 'X')
+            next_state = board.make_a_move(state, move, 'O')
             value = self.get_value(next_state)
             values.append((move,value))
         
