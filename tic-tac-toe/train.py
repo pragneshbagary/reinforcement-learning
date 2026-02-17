@@ -76,7 +76,7 @@ for episode in range(1,N+1):
         print(f"O wins = {episode_O_wins}")
         print(f"Draws = {episode_draws}")
         print(f"Average Reward = {episode_reward/1000:.4f}")
-        # reset episode counters
+
         episode_X_wins = 0
         episode_O_wins = 0
         episode_draws = 0
@@ -93,7 +93,7 @@ for episode in range(1,N+1):
         print("#" * 50)
 
 # ---- EVALUATION ----
-agent.epsilon = 0   # turn off exploration
+agent.epsilon = 0   
 
 test_games = 1000
 
@@ -111,7 +111,6 @@ for _ in range(test_games):
         legal_moves = board.get_legal_moves(state)
 
         if current_player == 'X':
-            # Greedy move (epsilon = 0)
             action = agent.choose_action(state, legal_moves, board)
         else:
             action = random.choice(legal_moves)
