@@ -11,7 +11,7 @@ class Agent():
             self.V[state] = 0.5
         return self.V[state]
 
-    def choose_action(self, state, legal_moves, board):
+    def choose_action(self, state, legal_moves, board, player):
         
         if random.random() < self.epsilon:
             return random.choice(legal_moves)
@@ -19,7 +19,7 @@ class Agent():
         values = []
 
         for move in legal_moves:
-            next_state = board.make_a_move(state, move, 'O')
+            next_state = board.make_a_move(state, move, player)
             value = self.get_value(next_state)
             values.append((move,value))
         

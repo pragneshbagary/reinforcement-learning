@@ -38,3 +38,4 @@ htmlcov/
 
 # Project specific
 trained_agent.pkl
+/k_bandit_problem/plots/

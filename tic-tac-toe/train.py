@@ -5,7 +5,8 @@ import pickle
 
 N = 100000
 board = Board()
-agent = Agent()
+agent_one = Agent()
+agent_two = Agent()
 
 X_wins = 0
 O_wins = 0
@@ -24,25 +25,29 @@ for episode in range(1,N+1):
 
     state = tuple('.' * 9)
     current_player = 'X'
-    episode_list = []
+    episode_list_O = []
+    episode_list_X = []
 
 
 
     while(True):
 
         legal_moves = board.get_legal_moves(state)
-        if current_player == 'O':
-            action = agent.choose_action(state, legal_moves, board)
+        if current_player == 'X':
+            action = agent_one.choose_action(state, legal_moves, board, current_player)
         else:
-            action = random.choice(legal_moves)
+            action = agent_two.choose_action(state, legal_moves, board, current_player)
 
         state = board.make_a_move(state, action, current_player)
         if current_player == 'O' :
-            episode_list.append(state)
+            episode_list_O.append(state)
+        else:
+            episode_list_X.append(state)
 
         winner = board.check_winner(state)
         if winner == 'O':
-            agent.update(episode_list, 1)
+            agent_two.update(episode_list_O , 1)
+            agent_one.update(episode_list_X, 0)
             total_reward = total_reward + 1
             episode_reward = episode_reward + 1
             O_wins = O_wins + 1
@@ -51,7 +56,8 @@ for episode in range(1,N+1):
             # board.print_board(state)
             break 
         elif winner == 'X':
-            agent.update(episode_list, 0)
+            agent_one.update(episode_list_X, 1)
+            agent_two.update(episode_list_O, 0)
             X_wins = X_wins + 1
             episode_X_wins = episode_X_wins + 1
             # print(f"winner is {winner}")
@@ -59,7 +65,8 @@ for episode in range(1,N+1):
             break 
 
         if board.check_draw(state):
-            agent.update(episode_list, 0.5)
+            agent_one.update(episode_list_X, 0.5)
+            agent_two.update(episode_list_O, 0.5)
             total_reward = total_reward + 0.5
             episode_reward = episode_reward + 0.5
             draws = draws + 1
@@ -72,11 +79,11 @@ for episode in range(1,N+1):
         current_player = 'O' if current_player == 'X' else 'X'
 
     if episode % 10000 == 0:
-        print(f"--- Episode {episode} (last 10000) ---")
+        print(f"--- Episode {episode} (last 1000) ---")
         print(f"X wins = {episode_X_wins}")
         print(f"O wins = {episode_O_wins}")
         print(f"Draws = {episode_draws}")
-        print(f"Average Reward = {episode_reward/10000:.4f}")
+        print(f"Average Reward = {episode_reward/1000:.4f}")
 
         episode_X_wins = 0
         episode_O_wins = 0
@@ -94,7 +101,8 @@ for episode in range(1,N+1):
         print("#" * 50)
 
 # ---- EVALUATION ----
-agent.epsilon = 0   
+agent_one.epsilon = 0   
+agent_two.epsilon = 0
 
 test_games = 1000
 
@@ -112,9 +120,9 @@ for _ in range(test_games):
         legal_moves = board.get_legal_moves(state)
 
         if current_player == 'O':
-            action = agent.choose_action(state, legal_moves, board)
+            action = agent_one.choose_action(state, legal_moves, board, current_player) 
         else:
-            action = random.choice(legal_moves)
+            action = agent_two.choose_action(state, legal_moves, board, current_player)
 
         state = board.make_a_move(state, action, current_player)
 
@@ -144,6 +152,6 @@ print(f"Loss rate: {X_wins / test_games:.3f}")
 print(f"Draw rate: {draws / test_games:.3f}")
 
 # Save the trained agent
-with open('trained_agent.pkl', 'wb') as f:
-    pickle.dump(agent, f)
-print("\nAgent saved to trained_agent.pkl")
+# with open('trained_agent.pkl', 'wb') as f:
+#     pickle.dump(agent, f)
+# print("\nAgent saved to trained_agent.pkl")
