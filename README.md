@@ -4,21 +4,37 @@ This repository contains Python implementations of reinforcement learning algori
 
 ## Overview
 
-Each directory contains implementations of examples and algorithms from the textbook. The code covers fundamental reinforcement learning concepts including value functions, policy learning, and temporal difference methods applied to various environments and problems.
+This repository implements key reinforcement learning concepts from Sutton & Barto's textbook:
+
+- **Temporal Difference (TD) Learning** — Learning value functions from experience without knowing the environment model
+- **Multi-Armed Bandits** — Exploration-exploitation tradeoff with various action-selection strategies
+- **Dynamic Programming** — Computing optimal policies and value functions when the environment model is known
 
 ## Examples
 
-| Example | Description |
-|---------|-------------|
-| tic-tac-toe | Temporal difference (TD) learning agent that learns to play tic-tac-toe through self-play |
+| Example | Topic | Description |
+|---------|-------|-------------|
+| **tic-tac-toe** | Temporal Difference Learning | TD(0) agent that learns to play tic-tac-toe through self-play, with GUI for testing trained agents |
+| **k_bandit_problem** | Multi-Armed Bandits | Comparison of action-selection strategies (epsilon-greedy, UCB, gradient bandit, optimistic initial values) on a k-armed bandit problem with performance metrics |
+| **dynamic_programming** | Dynamic Programming | GridWorld implementation demonstrating policy evaluation, policy improvement, and value iteration algorithms |
 
-## Structure
+## Directory Structure
 
-Each example directory contains:
-- Problem/environment implementation
-- Agent implementation with learning algorithm
-- Training script
-- Evaluation/testing script
+```
+├── tic-tac-toe/          # TD learning for tic-tac-toe
+│   ├── agent.py          # Agent with TD learning
+│   ├── board.py          # Game environment
+│   ├── train.py          # Training script
+│   ├── play.py           # CLI gameplay
+│   └── play_gui.py       # GUI for playing against trained agent
+│
+├── k_bandit_problem/     # Multi-armed bandit experiments
+│   ├── train.py          # Bandit environment and agents
+│   └── plots/            # Experiment results
+│
+└── dynamic_programming/  # GridWorld DP algorithms
+    └── gridworld.py      # Policy evaluation, improvement, and value iteration
+```
 
 ## Requirements
 
@@ -27,11 +43,27 @@ Each example directory contains:
 
 ## Usage
 
-Navigate to any example directory and follow its specific instructions:
+Each example can be run from its directory:
 
 ```bash
+# Train tic-tac-toe agent
 cd tic-tac-toe
 python train.py
+
+# Run k-bandit experiments
+cd k_bandit_problem
+python train.py
+
+# Run GridWorld DP algorithms
+cd dynamic_programming
+python gridworld.py
+```
+
+For tic-tac-toe, you can also play against the trained agent:
+
+```bash
+python play.py          # CLI version
+python play_gui.py      # GUI version
 ```
 
 ## References
