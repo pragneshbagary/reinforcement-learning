@@ -47,7 +47,6 @@ for ep in range(500):
 
 env.close()
 
-# Plot learning curve
 plt.figure(figsize=(10, 4))
 plt.plot(episode_lengths)
 plt.xlabel('Episode')

@@ -4,9 +4,7 @@ class SemiGradientSARSA:
     def __init__(self, coder, n_actions, alpha=0.1, gamma=1.0, epsilon=0.1):
         self.coder = coder
         self.n_actions = n_actions
-        # Separate weight vector per action
         self.w = np.zeros((n_actions, coder.n_features))
-        # Alpha divided by number of tilings (important!)
         self.alpha = alpha / coder.n_tilings
         self.gamma = gamma
         self.epsilon = epsilon
