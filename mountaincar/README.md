@@ -56,6 +56,12 @@ We implement the semi-gradient version of SARSA with separate weight vectors for
 
 The agent typically learns to solve MountainCar within 200-300 episodes, achieving the goal in under 200 steps per episode. The learning curve shows the characteristic "swing" behavior emerging as the agent discovers the optimal policy.
 
+Below is an example learned cost-to-go surface for the trained MountainCar agent:
+
+![Learned Cost-to-Go Function](plots/plot.png)
+
+This surface visualizes the estimated return (cost-to-go) across position and velocity states after training.
+
 ## References
 
 - Sutton, R. S., & Barto, A. G. (2018). Reinforcement learning: An introduction (2nd ed.). MIT Press.
