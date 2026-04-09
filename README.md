@@ -9,6 +9,7 @@ This repository implements key reinforcement learning concepts from Sutton & Bar
 - **Temporal Difference (TD) Learning** — Learning value functions from experience without knowing the environment model
 - **Multi-Armed Bandits** — Exploration-exploitation tradeoff with various action-selection strategies
 - **Dynamic Programming** — Computing optimal policies and value functions when the environment model is known
+- **Function Approximation** — Using tile coding and semi-gradient methods for continuous state spaces
 
 ## Examples
 
@@ -17,6 +18,7 @@ This repository implements key reinforcement learning concepts from Sutton & Bar
 | **tic-tac-toe** | Temporal Difference Learning | TD(0) agent that learns to play tic-tac-toe through self-play, with GUI for testing trained agents |
 | **k_bandit_problem** | Multi-Armed Bandits | Comparison of action-selection strategies (epsilon-greedy, UCB, gradient bandit, optimistic initial values) on a k-armed bandit problem with performance metrics |
 | **dynamic_programming** | Dynamic Programming | GridWorld implementation demonstrating policy evaluation, policy improvement, and value iteration algorithms |
+| **mountaincar** | Function Approximation | Semi-gradient SARSA with tile coding for solving the continuous MountainCar control problem |
 
 ## Directory Structure
 
@@ -32,8 +34,13 @@ This repository implements key reinforcement learning concepts from Sutton & Bar
 │   ├── train.py          # Bandit environment and agents
 │   └── plots/            # Experiment results
 │
-└── dynamic_programming/  # GridWorld DP algorithms
-    └── gridworld.py      # Policy evaluation, improvement, and value iteration
+├── dynamic_programming/  # GridWorld DP algorithms
+│   └── gridworld.py      # Policy evaluation, improvement, and value iteration
+│
+└── mountaincar/          # Function approximation on MountainCar
+    ├── main.py           # Training script with visualization
+    ├── semigradientsarsa.py  # Semi-gradient SARSA agent
+    └── tilecoder.py      # Tile coding implementation
 ```
 
 ## Requirements
@@ -57,6 +64,10 @@ python train.py
 # Run GridWorld DP algorithms
 cd dynamic_programming
 python gridworld.py
+
+# Train MountainCar agent
+cd mountaincar
+python main.py
 ```
 
 For tic-tac-toe, you can also play against the trained agent:
