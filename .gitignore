@@ -38,3 +38,4 @@ htmlcov/
 
 # Project specific
 trained_agent.pkl
+/Reinforcement-Learning-Papers
