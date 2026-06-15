@@ -1,82 +1,42 @@
-# Reinforcement Learning: An Introduction - Implementation Examples
+# Reinforcement Learning — Explorations
 
-This repository contains Python implementations of reinforcement learning algorithms and examples from Sutton & Barto's "Reinforcement Learning: An Introduction (2nd ed.)".
+I've been diving into reinforcement learning from the ground up. This repo is where I work through ideas, implement algorithms from scratch, and build intuition for how agents actually learn to make decisions.
 
-## Overview
+Most of the implementations are grounded in Sutton & Barto's *Reinforcement Learning: An Introduction* — not as an exercise, but because it's the clearest path from first principles to the kind of RL that matters in practice.
 
-This repository implements key reinforcement learning concepts from Sutton & Barto's textbook:
+## What's here
 
-- **Temporal Difference (TD) Learning** — Learning value functions from experience without knowing the environment model
-- **Multi-Armed Bandits** — Exploration-exploitation tradeoff with various action-selection strategies
-- **Dynamic Programming** — Computing optimal policies and value functions when the environment model is known
-- **Function Approximation** — Using tile coding and semi-gradient methods for continuous state spaces
+| Directory | What I was trying to understand |
+|-----------|----------------------------------|
+| **k_bandit_problem** | The exploration-exploitation tradeoff — how do you balance trying new things vs. sticking with what works? |
+| **dynamic_programming** | What does "optimal" even mean, and how do you compute it when you have a full model of the environment? |
+| **mountaincar** | How do you scale RL to continuous state spaces without a lookup table? |
+| **tic-tac-toe** | Can an agent learn a game purely through self-play with no prior knowledge of strategy? |
 
-## Examples
-
-| Example | Topic | Description |
-|---------|-------|-------------|
-| **tic-tac-toe** | Temporal Difference Learning | TD(0) agent that learns to play tic-tac-toe through self-play, with GUI for testing trained agents |
-| **k_bandit_problem** | Multi-Armed Bandits | Comparison of action-selection strategies (epsilon-greedy, UCB, gradient bandit, optimistic initial values) on a k-armed bandit problem with performance metrics |
-| **dynamic_programming** | Dynamic Programming | GridWorld implementation demonstrating policy evaluation, policy improvement, and value iteration algorithms |
-| **mountaincar** | Function Approximation | Semi-gradient SARSA with tile coding for solving the continuous MountainCar control problem |
-
-## Directory Structure
+## Structure
 
 ```
-├── tic-tac-toe/          # TD learning for tic-tac-toe
-│   ├── agent.py          # Agent with TD learning
-│   ├── board.py          # Game environment
-│   ├── train.py          # Training script
-│   ├── play.py           # CLI gameplay
-│   └── play_gui.py       # GUI for playing against trained agent
-│
-├── k_bandit_problem/     # Multi-armed bandit experiments
-│   ├── train.py          # Bandit environment and agents
-│   └── plots/            # Experiment results
-│
-├── dynamic_programming/  # GridWorld DP algorithms
-│   └── gridworld.py      # Policy evaluation, improvement, and value iteration
-│
-└── mountaincar/          # Function approximation on MountainCar
-    ├── main.py           # Training script with visualization
-    ├── semigradientsarsa.py  # Semi-gradient SARSA agent
-    └── tilecoder.py      # Tile coding implementation
+├── k_bandit_problem/     # Exploration strategies on a k-armed bandit
+├── dynamic_programming/  # Policy evaluation and value iteration in GridWorld
+├── mountaincar/          # Semi-gradient SARSA with tile coding
+└── tic-tac-toe/          # TD(0) agent, self-play training, playable GUI
 ```
 
-## Requirements
+## Running things
 
-- Python 3.x
-- No external dependencies (each example is self-contained)
-
-## Usage
-
-Each example can be run from its directory:
+Each directory is self-contained, no dependencies beyond Python 3.
 
 ```bash
-# Train tic-tac-toe agent
-cd tic-tac-toe
-python train.py
+python k_bandit_problem/train.py
+python dynamic_programming/gridworld.py
+python mountaincar/main.py
+python tic-tac-toe/train.py
 
-# Run k-bandit experiments
-cd k_bandit_problem
-python train.py
-
-# Run GridWorld DP algorithms
-cd dynamic_programming
-python gridworld.py
-
-# Train MountainCar agent
-cd mountaincar
-python main.py
+# Play against the trained tic-tac-toe agent
+python tic-tac-toe/play.py       # CLI
+python tic-tac-toe/play_gui.py   # GUI
 ```
 
-For tic-tac-toe, you can also play against the trained agent:
+## Reference
 
-```bash
-python play.py          # CLI version
-python play_gui.py      # GUI version
-```
-
-## References
-
-Sutton, R. S., & Barto, A. G. (2018). Reinforcement learning: An introduction (2nd ed.). MIT Press.
+Sutton, R. S., & Barto, A. G. (2018). *Reinforcement Learning: An Introduction* (2nd ed.). MIT Press.

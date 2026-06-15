@@ -1,41 +1,26 @@
-# k-bandit Problem Experiment
+# k-Armed Bandit — Exploration Strategies
 
-This directory contains the implementation and results for a k-armed bandit experiment.
+The bandit problem is one of the cleanest ways to study the exploration-exploitation tradeoff: you have k arms, each with an unknown reward distribution, and your goal is to figure out which is best without wasting too many pulls on bad ones. There's no state, no transitions — just the core tension between gathering information and acting on what you already know.
 
-## Description
+I implemented five strategies to see how they actually compare:
 
-The experiment compares several action-selection strategies applied to a simulated multi-armed bandit problem:
+- **Epsilon-greedy (sample average)** — exploit the best known arm most of the time, explore randomly with probability ε; estimates are simple averages
+- **Epsilon-greedy (constant step size)** — same idea, but weights recent rewards more heavily, which matters when the environment drifts
+- **UCB** — instead of random exploration, pick the arm with the highest upper confidence bound; uncertainty itself drives exploration
+- **Gradient bandit** — learns a preference over arms and updates via softmax policy gradient; no explicit value estimates
+- **Optimistic initial values** — start with inflated estimates so every arm gets tried before the agent settles into exploitation
 
-- **Epsilon-Greedy (sample average)**
-- **Epsilon-Greedy with constant step size**
-- **Upper Confidence Bound (UCB)**
-- **Gradient Bandit**
-- **Optimistic Initial Values**
-
-Each agent interacts with a bandit whose true reward values are drawn from a standard normal distribution. Agents are evaluated over many independent runs, and two metrics are tracked across time steps:
-
-1. Average reward obtained
-2. Percentage of times the optimal action is selected
-
-The script `train.py` defines the bandit environment, the agent classes, and the `run_experiment` helper that executes the simulation and aggregates results.
+Each agent runs against a 10-armed bandit where true reward values are drawn from N(0,1), averaged across many independent runs.
 
 ## Results
 
-The following plots summarize the outcomes for the optimistic initial-values strategy (and can be extended to include other methods by uncommenting lines in the script and re-running the experiment):
-
 ### Average Reward vs Steps
 
-![Average Reward Plot](plots/Figure_1.png)
+![Average Reward](plots_base/Figure_1.png)
 
-### Optimal Action Percentage vs Steps
+### Optimal Action % vs Steps
 
-![Optimal Action Plot](plots/Figure_2.png)
-
-These graphics illustrate how the agent's performance evolves over the course of the simulation. The average reward plot shows the long-term return, while the optimal action plot indicates how quickly the agent converges to the best arm.
-
-## Usage
-
-Run the training file from the `k_bandit_problem` directory:
+![Optimal Action](plots_base/Figure_2.png)
 
 ```bash
 python3 train.py
